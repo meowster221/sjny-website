@@ -41,7 +41,7 @@ const WORKS = [
    endpoint at formspree.io and paste its URL into FORM_ENDPOINT.
    ========================================================================== */
 
-const QUOTE_EMAIL = "info@sjnybuilds.com";
+const QUOTE_EMAIL = "info@sjnyconstruction.com";
 const FORM_ENDPOINT = ""; // example: "https://formspree.io/f/abcdwxyz"
 
 /* ========================================================================== */
