@@ -1,0 +1,24 @@
+# SJNY Construction - Apache configuration for Namecheap hosting
+
+# Always use https
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Retired service addresses forward to their merged replacements
+Redirect 301 /services/parapet-walls.html /services/local-law-11.html
+Redirect 301 /services/stucco.html /services/masonry-brickwork-stucco.html
+Redirect 301 /services/masonry-brickwork.html /services/masonry-brickwork-stucco.html
+Redirect 301 /services/pavers-hardscaping.html /services/concrete-pavers-hardscaping.html
+Redirect 301 /services/concrete.html /services/concrete-pavers-hardscaping.html
+
+# Pages and styles always revalidate so updates appear immediately;
+# photos may cache for a week
+<IfModule mod_headers.c>
+  <FilesMatch "\.(html|css|js)$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+  <FilesMatch "\.(jpg|jpeg|png|webp|ico)$">
+    Header set Cache-Control "public, max-age=604800"
+  </FilesMatch>
+</IfModule>
