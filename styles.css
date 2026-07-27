@@ -1046,6 +1046,13 @@ a.ledger-row {
   background: rgba(240, 235, 216, 0.08);
 }
 
+.hp-field {
+  position: absolute;
+  left: -9999px;
+  opacity: 0;
+  pointer-events: none;
+}
+
 .form-note {
   grid-column: 1 / -1;
   font-size: 13px;

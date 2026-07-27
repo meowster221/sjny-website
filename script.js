@@ -35,14 +35,15 @@ const WORKS = [
 
 /* ==========================================================================
    QUOTE FORM
-   Set QUOTE_EMAIL to the address that should receive requests. As
-   configured, the form opens the visitor's email application with the
-   request pre-written. To send silently instead, create a free form
-   endpoint at formspree.io and paste its URL into FORM_ENDPOINT.
+   Requests post to send-quote.php on this hosting, which emails a
+   structured message with the photos attached to QUOTE_EMAIL. If the
+   server cannot send for any reason, the form falls back to opening
+   the visitor's email application with the request pre-written.
    ========================================================================== */
 
-const QUOTE_EMAIL = "info@sjnyconstruction.com";
-const FORM_ENDPOINT = ""; // example: "https://formspree.io/f/abcdwxyz"
+const QUOTE_EMAIL = "danny@sjnyconstruction.com";
+const QUOTE_EMAIL_CC = "admin@sjnyconstruction.com";
+const QUOTE_ENDPOINT = "send-quote.php";
 
 /* ========================================================================== */
 
@@ -104,46 +105,43 @@ const FORM_ENDPOINT = ""; // example: "https://formspree.io/f/abcdwxyz"
       return;
     }
 
-    if (FORM_ENDPOINT) {
-      status.textContent = "Sending your request.";
-      fetch(FORM_ENDPOINT, {
-        method: "POST",
-        headers: { Accept: "application/json" },
-        body: data
-      }).then(function (response) {
-        if (response.ok) {
-          form.reset();
-          status.textContent = "Received. We will be back with your quote as quickly as possible.";
-        } else {
-          status.textContent = "Something went wrong. Please call us instead.";
-        }
-      }).catch(function () {
-        status.textContent = "Something went wrong. Please call us instead.";
-      });
-      return;
+    function mailFallback() {
+      const photoCount = document.getElementById("qPhotos").files.length;
+      const lines = [
+        "Name: " + name,
+        "Phone: " + phone,
+        "Email: " + email,
+        "Property address: " + (data.get("address") || "Not provided"),
+        "Type of work: " + data.get("service"),
+        "",
+        "About the project:",
+        data.get("details") || "Not provided"
+      ];
+      if (photoCount > 0) {
+        lines.push("", "Photos: " + photoCount + " selected, attached to this email.");
+      }
+      const subject = "Estimate request from " + name;
+      window.location.href = "mailto:" + QUOTE_EMAIL +
+        "?cc=" + encodeURIComponent(QUOTE_EMAIL_CC) +
+        "&subject=" + encodeURIComponent(subject) +
+        "&body=" + encodeURIComponent(lines.join("\n"));
+      status.textContent = photoCount > 0
+        ? "Your email application should open with the request prepared. Attach your photos there and press send."
+        : "Your email application should open with the request prepared. Press send there.";
     }
 
-    const photoCount = document.getElementById("qPhotos").files.length;
-    const lines = [
-      "Name: " + name,
-      "Phone: " + phone,
-      "Email: " + email,
-      "Property address: " + (data.get("address") || "Not provided"),
-      "Type of work: " + data.get("service"),
-      "",
-      "About the project:",
-      data.get("details") || "Not provided"
-    ];
-    if (photoCount > 0) {
-      lines.push("", "Photos: " + photoCount + " selected, attached to this email.");
-    }
-    const subject = "Estimate request from " + name;
-    window.location.href = "mailto:" + QUOTE_EMAIL +
-      "?subject=" + encodeURIComponent(subject) +
-      "&body=" + encodeURIComponent(lines.join("\n"));
-    status.textContent = photoCount > 0
-      ? "Your email application should open with the request prepared. Attach your photos there and press send."
-      : "Your email application should open with the request prepared. Press send there.";
+    status.textContent = "Sending your request.";
+    fetch(QUOTE_ENDPOINT, { method: "POST", body: data })
+      .then(function (response) {
+        if (!response.ok) throw new Error("http " + response.status);
+        return response.json();
+      })
+      .then(function (result) {
+        if (!result || !result.ok) throw new Error("send failed");
+        form.reset();
+        status.textContent = "Received. Your request went straight to our team and your quote is on its way.";
+      })
+      .catch(mailFallback);
   });
 
   /* ----- Flowing project reel ----- */

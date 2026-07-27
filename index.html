@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SJNY Construction Inc. | Family Owned General Contractor | Tri-State Area</title>
   <meta name="description" content="SJNY Construction Inc. is a family-owned, licensed and fully insured general contracting firm serving the tri-state area since 2007. Local Law 11, new construction, extensions, roofing, masonry, stucco, concrete and violation removal.">
-  <link rel="canonical" href="https://sjnyconstruction.com/">
+  <link rel="canonical" href="https://sjnybuilds.com/">
   <meta property="og:site_name" content="SJNY Construction Inc.">
   <meta property="og:title" content="SJNY Construction Inc. | Family Owned General Contractor">
   <meta property="og:description" content="A family-owned, licensed and fully insured general contracting firm serving the tri-state area since 2007.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://sjnyconstruction.com/">
-  <meta property="og:image" content="https://sjnyconstruction.com/assets/og-image.jpg">
+  <meta property="og:url" content="https://sjnybuilds.com/">
+  <meta property="og:image" content="https://sjnybuilds.com/assets/og-image.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" type="image/png" href="assets/favicon.png">
   <link rel="apple-touch-icon" href="assets/favicon.png">
@@ -25,10 +25,10 @@
     "@context": "https://schema.org",
     "@type": "GeneralContractor",
     "name": "SJNY Construction Inc.",
-    "url": "https://sjnyconstruction.com",
+    "url": "https://sjnybuilds.com",
     "telephone": ["+1-347-659-0881", "+1-718-450-4841"],
     "foundingDate": "2007",
-    "image": "https://sjnyconstruction.com/assets/og-image.jpg",
+    "image": "https://sjnybuilds.com/assets/og-image.jpg",
     "address": { "@type": "PostalAddress", "addressRegion": "NY", "addressCountry": "US" },
     "areaServed": ["New York", "New Jersey", "Connecticut"],
     "description": "Family-owned, licensed and fully insured general contracting firm serving the tri-state area since 2007.",
@@ -66,7 +66,7 @@
       <span class="hero-kicker">Family owned and operated</span>
       <h1>Two generations of builders. <em>One standard of work.</em></h1>
       <p class="hero-scope">Residential and Commercial <span class="sep">|</span> Interior and Exterior</p>
-      <p class="hero-lede">A licensed and fully insured general contractor serving the tri-state area. Whatever you envision, inside or out, we build it and make sure you have the best experience. You work hard for every dollar and we work just as hard to save you as many as possible.</p>
+      <p class="hero-lede">A licensed and fully insured general contractor serving the tri-state area. You work hard for every dollar and we work just as hard to save you as many as possible.</p>
       <div class="hero-actions">
         <a class="btn btn-parchment" href="#estimate">Request an Estimate</a>
         <a class="btn btn-ghost-light" href="#work">View Our Work</a>
@@ -126,7 +126,7 @@
       <div class="work-head reveal">
         <span class="eyebrow">Our Work</span>
         <h2>The proof is standing across the tri-state area.</h2>
-        <p>The reel drifts on its own. Drag it either way, or select any photograph for its location and scope.</p>
+        <p>Drag the reel either way, or select any photograph for its location and scope.</p>
       </div>
     </div>
     <div class="strips reveal" id="strips" role="region" aria-label="Project photographs"></div>
@@ -137,7 +137,7 @@
       <div class="reviews-head reveal">
         <span class="eyebrow">Reviews</span>
         <h2>Five stars on Google.</h2>
-        <p>A 5.0 rating across 65 reviews and counting. A few of them, word for word.</p>
+        <p>A 5.0 rating across 65 reviews. A few of them, word for word.</p>
       </div>
       <div class="reviews-grid reveal">
         <blockquote class="review">
@@ -189,7 +189,7 @@
         <div class="estimate-intro reveal">
           <span class="eyebrow">Estimates</span>
           <h2>Tell us what you are building. Or repairing.</h2>
-          <p>Send the details and Sunny or Danny will reply directly. There is no call center here and no estimator reading from a script. You speak with the people who will build it.</p>
+          <p>Send the details and Sunny or Danny will reply directly. No call centers, no scripts. You speak with the people who will build it.</p>
           <div class="estimate-phones">
             <span>By phone</span>
             <a href="tel:+13476590881">(347) 659-0881 <small>Danny</small></a>
@@ -197,6 +197,10 @@
           </div>
         </div>
         <form class="quote-form reveal" id="quoteForm">
+          <div class="hp-field" aria-hidden="true">
+            <label for="qCompany">Company</label>
+            <input id="qCompany" name="company" type="text" tabindex="-1" autocomplete="off">
+          </div>
           <div class="field">
             <label for="qName">Name</label>
             <input id="qName" name="name" type="text" autocomplete="name" required>
@@ -236,9 +240,9 @@
           </div>
           <div class="field full">
             <label for="qPhotos">Photos, if you have them</label>
-            <input id="qPhotos" name="photos" type="file" accept="image/*" multiple>
+            <input id="qPhotos" name="photos[]" type="file" accept="image/*" multiple>
           </div>
-          <p class="form-note">Your details go directly to our team and we work to have your quote back as quickly as possible. No mailing lists and no pressure.</p>
+          <p class="form-note">Your details go straight to our team and your quote comes back fast. No mailing lists, no pressure.</p>
           <button class="btn btn-parchment" type="submit">Send Request</button>
           <p class="form-status" id="formStatus" role="status"></p>
         </form>

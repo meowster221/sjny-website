@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Masonry, Brickwork and Stucco | SJNY Construction Inc.</title>
   <meta name="description" content="Masonry, repointing, brownstone restoration and stucco in New York by SJNY Construction, craft learned across twenty years in Brescia, Italy.">
-  <link rel="canonical" href="https://sjnyconstruction.com/services/masonry-brickwork-stucco.html">
+  <link rel="canonical" href="https://sjnybuilds.com/services/masonry-brickwork-stucco.html">
   <meta property="og:site_name" content="SJNY Construction Inc.">
   <meta property="og:title" content="Masonry, Brickwork and Stucco | SJNY Construction Inc.">
   <meta property="og:description" content="Masonry, repointing, brownstone restoration and stucco in New York by SJNY Construction, craft learned across twenty years in Brescia, Italy.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://sjnyconstruction.com/services/masonry-brickwork-stucco.html">
-  <meta property="og:image" content="https://sjnyconstruction.com/assets/og-image.jpg">
+  <meta property="og:url" content="https://sjnybuilds.com/services/masonry-brickwork-stucco.html">
+  <meta property="og:image" content="https://sjnybuilds.com/assets/og-image.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" type="image/png" href="../assets/favicon.png">
   <link rel="apple-touch-icon" href="../assets/favicon.png">
@@ -85,7 +85,7 @@
         <div class="estimate-intro">
           <span class="eyebrow">Estimates</span>
           <h2>Tell us about your project.</h2>
-          <p>Send the details and Sunny or Danny will reply directly. There is no call center here and no estimator reading from a script. You speak with the people who will build it.</p>
+          <p>Send the details and Sunny or Danny will reply directly. No call centers, no scripts. You speak with the people who will build it.</p>
           <div class="estimate-phones">
             <span>By phone</span>
             <a href="tel:+13476590881">(347) 659-0881 <small>Danny</small></a>
@@ -93,6 +93,10 @@
           </div>
         </div>
         <form class="quote-form" id="quoteForm">
+          <div class="hp-field" aria-hidden="true">
+            <label for="qCompany">Company</label>
+            <input id="qCompany" name="company" type="text" tabindex="-1" autocomplete="off">
+          </div>
           <div class="field">
             <label for="qName">Name</label>
             <input id="qName" name="name" type="text" autocomplete="name" required>
@@ -132,9 +136,9 @@
           </div>
           <div class="field full">
             <label for="qPhotos">Photos, if you have them</label>
-            <input id="qPhotos" name="photos" type="file" accept="image/*" multiple>
+            <input id="qPhotos" name="photos[]" type="file" accept="image/*" multiple>
           </div>
-          <p class="form-note">Your details go directly to our team and we work to have your quote back as quickly as possible. No mailing lists and no pressure.</p>
+          <p class="form-note">Your details go straight to our team and your quote comes back fast. No mailing lists, no pressure.</p>
           <button class="btn btn-parchment" type="submit">Send Request</button>
           <p class="form-status" id="formStatus" role="status"></p>
         </form>
