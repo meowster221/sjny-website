@@ -49,7 +49,7 @@ const QUOTE_ENDPOINT = "https://api.web3forms.com/submit";
 /* Get a free key at https://web3forms.com by entering the address that
    should receive estimate requests. The key is public by design, so it is
    safe to keep here in the repository. */
-const WEB3FORMS_KEY = "PASTE-YOUR-WEB3FORMS-ACCESS-KEY-HERE";
+const WEB3FORMS_KEY = "95a9ee05-2213-4c91-82fe-c652dc0d4045";
 
 /* ========================================================================== */
 
