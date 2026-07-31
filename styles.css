@@ -1019,33 +1019,6 @@ a.ledger-row {
 
 .field textarea { min-height: 128px; resize: vertical; }
 
-.field input[type="file"] {
-  padding: 11px 12px;
-  font-size: 13.5px;
-  color: rgba(240, 235, 216, 0.75);
-  cursor: pointer;
-}
-
-.field input[type="file"]::file-selector-button {
-  font-family: var(--sans);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--parchment);
-  background: transparent;
-  border: 1px solid rgba(240, 235, 216, 0.4);
-  padding: 8px 14px;
-  margin-right: 14px;
-  cursor: pointer;
-  transition: border-color 0.2s ease, background 0.2s ease;
-}
-
-.field input[type="file"]::file-selector-button:hover {
-  border-color: var(--steel);
-  background: rgba(240, 235, 216, 0.08);
-}
-
 .hp-field {
   position: absolute;
   left: -9999px;
@@ -1058,6 +1031,15 @@ a.ledger-row {
   font-size: 13px;
   color: rgba(240, 235, 216, 0.62);
 }
+
+.form-note a {
+  color: rgba(240, 235, 216, 0.9);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 0.2s ease;
+}
+
+.form-note a:hover { color: var(--parchment); }
 
 .quote-form .btn { justify-self: start; }
 

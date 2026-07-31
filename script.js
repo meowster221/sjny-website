@@ -35,15 +35,21 @@ const WORKS = [
 
 /* ==========================================================================
    QUOTE FORM
-   Requests post to send-quote.php on this hosting, which emails a
-   structured message with the photos attached to QUOTE_EMAIL. If the
-   server cannot send for any reason, the form falls back to opening
-   the visitor's email application with the request pre-written.
+   GitHub Pages serves static files only and cannot run a mailer, so
+   requests post to Web3Forms, which emails them on to whichever address
+   is tied to WEB3FORMS_KEY. Until that key is filled in, and any time the
+   request fails, the form falls back to opening the visitor's email
+   application with the request pre-written.
    ========================================================================== */
 
 const QUOTE_EMAIL = "danny@sjnyconstruction.com";
 const QUOTE_EMAIL_CC = "admin@sjnyconstruction.com";
-const QUOTE_ENDPOINT = "send-quote.php";
+const QUOTE_ENDPOINT = "https://api.web3forms.com/submit";
+
+/* Get a free key at https://web3forms.com by entering the address that
+   should receive estimate requests. The key is public by design, so it is
+   safe to keep here in the repository. */
+const WEB3FORMS_KEY = "PASTE-YOUR-WEB3FORMS-ACCESS-KEY-HERE";
 
 /* ========================================================================== */
 
@@ -99,6 +105,16 @@ const QUOTE_ENDPOINT = "send-quote.php";
     const name = String(data.get("name") || "").trim();
     const phone = String(data.get("phone") || "").trim();
     const email = String(data.get("email") || "").trim();
+    const sentMessage = "Received. Your request went straight to our team and your quote is on its way.";
+
+    /* Honeypot: humans never see this field. If it is filled, act as though
+       the request went through so the bot moves on, and send nothing. */
+    if (String(data.get("company") || "").trim()) {
+      form.reset();
+      status.textContent = sentMessage;
+      return;
+    }
+    data.delete("company");
 
     if (!name || !phone || !email) {
       status.textContent = "Please provide your name, phone and email so we can reach you.";
@@ -106,7 +122,6 @@ const QUOTE_ENDPOINT = "send-quote.php";
     }
 
     function mailFallback() {
-      const photoCount = document.getElementById("qPhotos").files.length;
       const lines = [
         "Name: " + name,
         "Phone: " + phone,
@@ -117,29 +132,38 @@ const QUOTE_ENDPOINT = "send-quote.php";
         "About the project:",
         data.get("details") || "Not provided"
       ];
-      if (photoCount > 0) {
-        lines.push("", "Photos: " + photoCount + " selected, attached to this email.");
-      }
       const subject = "Estimate request from " + name;
       window.location.href = "mailto:" + QUOTE_EMAIL +
         "?cc=" + encodeURIComponent(QUOTE_EMAIL_CC) +
         "&subject=" + encodeURIComponent(subject) +
         "&body=" + encodeURIComponent(lines.join("\n"));
-      status.textContent = photoCount > 0
-        ? "Your email application should open with the request prepared. Attach your photos there and press send."
-        : "Your email application should open with the request prepared. Press send there.";
+      status.textContent = "Your email application should open with the request prepared. Press send there.";
     }
+
+    /* No key filled in yet, so there is nothing to post to. */
+    if (!WEB3FORMS_KEY || WEB3FORMS_KEY.indexOf("PASTE") === 0) {
+      mailFallback();
+      return;
+    }
+
+    data.append("access_key", WEB3FORMS_KEY);
+    data.append("subject", "Estimate request from " + name);
+    data.append("from_name", "SJNY Construction website");
+    data.append("replyto", email);
 
     status.textContent = "Sending your request.";
     fetch(QUOTE_ENDPOINT, { method: "POST", body: data })
       .then(function (response) {
-        if (!response.ok) throw new Error("http " + response.status);
-        return response.json();
+        return response.json()
+          .catch(function () { return {}; })
+          .then(function (result) { return { ok: response.ok, result: result || {} }; });
       })
-      .then(function (result) {
-        if (!result || !result.ok) throw new Error("send failed");
+      .then(function (payload) {
+        const sent = payload.result.success === true ||
+          (payload.ok && payload.result.success === undefined);
+        if (!sent) throw new Error("send failed");
         form.reset();
-        status.textContent = "Received. Your request went straight to our team and your quote is on its way.";
+        status.textContent = sentMessage;
       })
       .catch(mailFallback);
   });
