@@ -42,8 +42,11 @@ const WORKS = [
    application with the request pre-written.
    ========================================================================== */
 
-const QUOTE_EMAIL = "danny@sjnyconstruction.com";
-const QUOTE_EMAIL_CC = "admin@sjnyconstruction.com";
+/* quotes@ is a distribution group, so adding people to it in Zoho is how
+   more of the team gets copied. Do not add admin@sjnyconstruction.com here:
+   that group only accepts mail from its own members, so anything a visitor
+   sends to it is rejected. */
+const QUOTE_EMAIL = "quotes@sjnyconstruction.com";
 const QUOTE_ENDPOINT = "https://api.web3forms.com/submit";
 
 /* Get a free key at https://web3forms.com by entering the address that
@@ -134,8 +137,7 @@ const WEB3FORMS_KEY = "95a9ee05-2213-4c91-82fe-c652dc0d4045";
       ];
       const subject = "Estimate request from " + name;
       window.location.href = "mailto:" + QUOTE_EMAIL +
-        "?cc=" + encodeURIComponent(QUOTE_EMAIL_CC) +
-        "&subject=" + encodeURIComponent(subject) +
+        "?subject=" + encodeURIComponent(subject) +
         "&body=" + encodeURIComponent(lines.join("\n"));
       status.textContent = "Your email application should open with the request prepared. Press send there.";
     }
