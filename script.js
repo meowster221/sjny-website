@@ -27,9 +27,8 @@ const WORKS = [
   { image: "assets/interior-renovation.webp", cat: "Interiors", title: "Full Interior Renovation", location: "Queens", summary: "Gut renovation finished in hardwood with new millwork and restored ceiling medallions." },
   { image: "assets/concrete-drive.jpg", cat: "Concrete and Pavers", home: true, title: "Concrete Drive with Paver Border", location: "Whitestone, Queens", summary: "New concrete driveway framed in pavers and graded for proper drainage." },
   { image: "assets/roof-finish.webp", cat: "Facades and Roofing", title: "Flat Roof Replacement", location: "Queens", summary: "Complete tear-off and installation of a new flat roofing system with corrected drainage." },
-  { image: "assets/balustrade-house.jpg", cat: "Exteriors", title: "Brick and Precast Residence", location: "Mill Basin, Brooklyn", summary: "Brick facade with precast surrounds and a restored porch balustrade." },
+  { image: "assets/balustrade-house.jpg", cat: "Exteriors", home: true, title: "Brick and Precast Residence", location: "Mill Basin, Brooklyn", summary: "Brick facade with precast surrounds and a restored porch balustrade." },
   { image: "assets/stucco-deck.jpg", cat: "Exteriors", title: "Stucco Facade and Deck", location: "Brooklyn", summary: "New stucco facade with restored window surrounds and a rear deck rebuilt in composite." },
-  { image: "assets/hillside-entry.jpg", cat: "Exteriors", home: true, title: "Hillside Entry and Retaining Walls", location: "Westchester County", summary: "Stone veneer walls, new steps and iron railings taking a hillside entry up to the porch." },
   { image: "assets/sidewalk-replacement.webp", cat: "Concrete and Pavers", title: "Sidewalk Replacement", location: "Flushing, Queens", summary: "Full sidewalk replacement that removed the DOT violation and closed the record." },
   { image: "assets/commercial-corner.jpg", cat: "Exteriors", title: "Commercial Ground-Up Build", location: "Queens", summary: "Ground-up commercial construction carried from foundation to opening day." }
 ];
@@ -230,7 +229,14 @@ const WEB3FORMS_KEY = "95a9ee05-2213-4c91-82fe-c652dc0d4045";
       img.decoding = "async";
       const cap = document.createElement("span");
       cap.className = "tile-cap";
-      cap.textContent = work.location;
+      const capLoc = document.createElement("span");
+      capLoc.className = "cap-loc";
+      capLoc.textContent = work.location;
+      const capJob = document.createElement("span");
+      capJob.className = "cap-job";
+      capJob.textContent = work.title;
+      cap.appendChild(capLoc);
+      cap.appendChild(capJob);
       tile.appendChild(img);
       tile.appendChild(cap);
       tile.addEventListener("click", function () { openLightbox(items, items.indexOf(work)); });
